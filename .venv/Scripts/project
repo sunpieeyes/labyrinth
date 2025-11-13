@@ -1,6 +1,0 @@
-#!D:\vs\homeworks\project1_Shevchenko_Sergey\.venv\Scripts\python.exe
-import sys
-from labyrinth_game.main import main
-
-if __name__ == '__main__':
-    sys.exit(main())
