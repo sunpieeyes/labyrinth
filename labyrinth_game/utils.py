@@ -1,7 +1,9 @@
 # labyrinth_game/utils.py
 import math
+
 from labyrinth_game.constants import ROOMS
 from labyrinth_game.player_actions import get_input
+
 
 def describe_current_room(game_state):
     current_room = game_state['current_room']
@@ -54,7 +56,8 @@ def random_event(game_state):
         if "sword" in game_state['player_inventory']:
             print("Вы отпугнули существо своим мечом.")
     elif event_type == 2:
-        if current_room == "trap_room" and "torch" not in game_state['player_inventory']:
+        if current_room == "trap_room" and \
+            "torch" not in game_state['player_inventory']:
             print("Опасность! Ловушка может сработать!")
             trigger_trap(game_state)
 
@@ -101,7 +104,9 @@ def attempt_open_treasure(game_state):
         game_state['game_over'] = True
         return
 
-    use_code = get_input("Сундук заперт. Хотите попробовать ввести код? (да/нет) ").strip().lower()
+    use_code = get_input(
+        "Сундук заперт. Хотите попробовать ввести код? (да/нет) "
+    ).strip().lower()
     if use_code != "да":
         print("Вы отступаете от сундука.")
         return
