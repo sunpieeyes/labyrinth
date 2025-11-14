@@ -9,7 +9,8 @@
 
 ### 1. Склонировать проектbash
 
-git clone https://github.com/your-username/project1_Shevchenko_Sergey.git
+git clone https://github.com/sunpieeyes/labyrinth.git
+
 
 cd project1_Shevchenko_Sergey
 
