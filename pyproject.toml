@@ -23,7 +23,8 @@ build-backend = "poetry.core.masonry.api"
 
 [dependency-groups]
 dev = [
-    "ruff (>=0.14.4,<0.15.0)"
+    "ruff (>=0.14.4,<0.15.0)",
+    "asciinema (>=2.4.0,<3.0.0)"
 ]
 
 [tool.ruff]

@@ -4,6 +4,7 @@ from labyrinth_game.constants import ROOMS
 
 
 def get_input(prompt="> "):
+    """Получает ввод пользователя, безопасно обрабатывая прерывания."""
     try:
         return input(prompt).strip()
     except (KeyboardInterrupt, EOFError):
@@ -12,6 +13,7 @@ def get_input(prompt="> "):
 
 
 def move_player(game_state, direction):
+    """Перемещает игрока в указанном направлении, если это возможно."""
     from labyrinth_game.utils import describe_current_room, random_event
 
     current_room = game_state['current_room']
@@ -23,9 +25,10 @@ def move_player(game_state, direction):
 
     next_room = room_data['exits'][direction]
 
-    # Проверка ключа для treasure_room
-    if next_room == "treasure_room" and \
-    "rusty_key" not in game_state['player_inventory']:
+    if (
+        next_room == "treasure_room"
+        and "rusty_key" not in game_state['player_inventory']
+    ):
         print("Дверь заперта. Нужен ключ, чтобы пройти дальше.")
         return
     elif next_room == "treasure_room":
@@ -39,6 +42,7 @@ def move_player(game_state, direction):
 
 
 def take_item(game_state, item_name):
+    """Добавляет предмет из комнаты в инвентарь игрока."""
     current_room = game_state['current_room']
     room_data = ROOMS[current_room]
 
@@ -51,14 +55,26 @@ def take_item(game_state, item_name):
 
 
 def use_item(game_state, item_name):
+    """Использует предмет из инвентаря игрока. Для bronze_box выдаёт ключ."""
     if item_name not in game_state['player_inventory']:
         print("У вас нет такого предмета.")
         return
 
     print(f"Вы использовали {item_name}.")
 
+    if item_name == "bronze_box":
+        if "rusty_key" not in game_state['player_inventory']:
+            game_state['player_inventory'].append("rusty_key")
+            print(
+                "Вы открыли бронзовую шкатулку и нашли ключ! "
+                "Теперь вы можете попасть в комнату сокровищ."
+            )
+        else:
+            print("Вы уже получили ключ из бронзовой шкатулки.")
+
 
 def show_inventory(game_state):
+    """Выводит текущий инвентарь игрока."""
     inventory = game_state['player_inventory']
     if inventory:
         print("Ваш инвентарь:", ", ".join(inventory))

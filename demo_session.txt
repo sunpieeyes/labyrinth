@@ -1,0 +1,30 @@
+﻿**********************
+Начало записи сценария Windows PowerShell
+Время начала: 20251114180631
+Имя пользователя: KOMPUTER\New
+Запуск от имени пользователя: KOMPUTER\New
+Имя конфигурации: 
+Компьютер: KOMPUTER (Microsoft Windows NT 10.0.19045.0)
+Ведущее приложение: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -noexit -command try { . "c:\Users\New\AppData\Local\Programs\Microsoft VS Code\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1" } catch {}
+ИД процесса: 14056
+PSVersion: 5.1.19041.6456
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.6456
+BuildVersion: 10.0.19041.6456
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Транскрибирование запущено, выходной файл .\demo_session.txt
+]633;D;0]633;A]633;P;Cwd=D:\x5cvs\x5chomeworks\x5cproject1_Shevchenko_SergeyPS D:\vs\homeworks\project1_Shevchenko_Sergey> ]633;B
+PS>poetry run project
+
+
+]633;D;0]633;A]633;P;Cwd=D:\x5cvs\x5chomeworks\x5cproject1_Shevchenko_SergeyPS D:\vs\homeworks\project1_Shevchenko_Sergey> ]633;B
+PS>Stop-Transcript
+
+**********************
+Конец записи протокола Windows PowerShell
+Время окончания: 20251114180715
+**********************

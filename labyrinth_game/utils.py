@@ -1,4 +1,5 @@
 # labyrinth_game/utils.py
+
 import math
 
 from labyrinth_game.constants import ROOMS
@@ -6,26 +7,31 @@ from labyrinth_game.player_actions import get_input
 
 
 def describe_current_room(game_state):
+    """Выводит описание текущей комнаты, предметы и выходы."""
     current_room = game_state['current_room']
     room_data = ROOMS[current_room]
 
     print(f"\n== {current_room.upper()} ==")
     print(room_data['description'])
 
-    if room_data['items']:
+    if room_data.get('items'):
         print("Заметные предметы:", ", ".join(room_data['items']))
-    
+
     print("Выходы:", ", ".join(room_data['exits'].keys()))
 
-    if room_data['puzzle']:
+    if room_data.get('puzzle'):
         print("Кажется, здесь есть загадка (используйте команду solve).")
 
+
 def pseudo_random(seed, modulo):
+    """Псевдослучайное число от 0 до modulo-1 на основе sine."""
     x = math.sin(seed * 12.9898) * 43758.5453
     x = x - math.floor(x)
     return int(x * modulo)
 
+
 def trigger_trap(game_state):
+    """Активирует ловушку в комнате."""
     print("Ловушка активирована! Пол стал дрожать...")
     inventory = game_state['player_inventory']
     if inventory:
@@ -40,7 +46,9 @@ def trigger_trap(game_state):
         else:
             print("Вы уцелели, но испугались...")
 
+
 def random_event(game_state):
+    """Случайное событие в комнате: ловушка, монета, шорох."""
     if pseudo_random(game_state['steps_taken'], 10) != 0:
         return  # событие не произошло
 
@@ -56,16 +64,20 @@ def random_event(game_state):
         if "sword" in game_state['player_inventory']:
             print("Вы отпугнули существо своим мечом.")
     elif event_type == 2:
-        if current_room == "trap_room" and \
-            "torch" not in game_state['player_inventory']:
+        if (
+            current_room == "trap_room"
+            and "torch" not in game_state['player_inventory']
+        ):
             print("Опасность! Ловушка может сработать!")
             trigger_trap(game_state)
 
+
 def solve_puzzle(game_state):
+    """Позволяет игроку решить загадку в текущей комнате."""
     current_room = game_state['current_room']
     room_data = ROOMS[current_room]
 
-    if not room_data['puzzle']:
+    if not room_data.get('puzzle'):
         print("Загадок здесь нет.")
         return
 
@@ -73,7 +85,6 @@ def solve_puzzle(game_state):
     print(question)
     user_answer = get_input("Ваш ответ: ").strip().lower()
 
-    # Альтернативные варианты ответа
     correct_answers = [answer.lower()]
     if answer == "10":
         correct_answers.append("десять")
@@ -89,11 +100,13 @@ def solve_puzzle(game_state):
         if current_room == "trap_room":
             trigger_trap(game_state)
 
+
 def attempt_open_treasure(game_state):
+    """Попытка открыть сундук в комнате сокровищ."""
     current_room = game_state['current_room']
     room_data = ROOMS[current_room]
 
-    if 'treasure_chest' not in room_data['items']:
+    if 'treasure_chest' not in room_data.get('items', []):
         print("Сундука здесь нет.")
         return
 
@@ -111,7 +124,7 @@ def attempt_open_treasure(game_state):
         print("Вы отступаете от сундука.")
         return
 
-    if room_data['puzzle']:
+    if room_data.get('puzzle'):
         _, correct_code = room_data['puzzle']
         user_code = get_input("Введите код: ").strip()
         if user_code == correct_code:
@@ -124,7 +137,9 @@ def attempt_open_treasure(game_state):
     else:
         print("Сундук невозможно открыть кодом.")
 
+
 def show_help(commands):
+    """Выводит список доступных команд и их описание."""
     print("\nДоступные команды:")
     for cmd, desc in commands.items():
         print(f"{cmd:<16} - {desc}")
