@@ -1,4 +1,4 @@
-# Labyrinth Game
+### Labyrinth Game
 
 ##  Описание
 
@@ -7,9 +7,10 @@
 
 ## ⚙️ Установка и запуск
 
-### 1. Склонировать проект
-```bash
+### 1. Склонировать проектbash
+
 git clone https://github.com/your-username/project1_Shevchenko_Sergey.git
+
 cd project1_Shevchenko_Sergey
 
 
